@@ -9,7 +9,7 @@ import (
 )
 
 type Lookup struct {
-	Headers    struct{} `json:"head"`
+	Headers    map[string]string `json:"head,omitempty"`
 	Definition `json:"def"`
 }
 
@@ -44,8 +44,8 @@ func DiccionarySearch(api_key string, message string, language string) *Lookup {
 	urlstring := "https://dictionary.yandex.net/api/v1/dicservice.json/lookup"
 	data := url.Values{}
 	data.Add("key", api_key)
-	data.Add("text", message)
 	data.Add("lang", translation_code)
+	data.Add("text", message)
 
 	r, _ := http.NewRequest("POST", urlstring, strings.NewReader(data.Encode()))
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded") // URL-encoded payload

@@ -24,7 +24,7 @@ type TextTranslation struct {
 }
 
 func Getyandexlanguages(api_key string, target_language string) *YandexLanguages {
-	client := &http.Client{}
+
 	urlstring := "https://translate.yandex.net/api/v1.5/tr.json/getLangs"
 	data := url.Values{}
 	data.Add("key", api_key)
@@ -32,7 +32,7 @@ func Getyandexlanguages(api_key string, target_language string) *YandexLanguages
 
 	r, _ := http.NewRequest("GET", urlstring, strings.NewReader(data.Encode()))
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded") // URL-encoded payload
-	req, error := client.Do(r)
+	req, error := YandexhttpClient.Do(r)
 
 	if error != nil {
 		panic(error)
@@ -48,7 +48,6 @@ func Getyandexlanguages(api_key string, target_language string) *YandexLanguages
 
 func Detectlanguage(api_key string, message string) *LanguageDetection {
 
-	client := &http.Client{}
 	urlstring := "https://translate.yandex.net/api/v1.5/tr.json/detect"
 	data := url.Values{}
 	data.Add("key", api_key)
@@ -56,7 +55,7 @@ func Detectlanguage(api_key string, message string) *LanguageDetection {
 
 	r, _ := http.NewRequest("GET", urlstring, strings.NewReader(data.Encode()))
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded") // URL-encoded payload
-	req, error := client.Do(r)
+	req, error := YandexhttpClient.Do(r)
 
 	if error != nil {
 		panic(error)
@@ -75,7 +74,6 @@ func Gettexttranslation(api_key string, message string, language string) *TextTr
 	language_detection := Detectlanguage(api_key, message)
 	translation_code := fmt.Sprintf("%s-%s", language_detection.DecodeLanguage, language)
 
-	client := &http.Client{}
 	urlstring := "https://translate.yandex.net/api/v1.5/tr.json/translate"
 	data := url.Values{}
 	data.Add("key", api_key)
@@ -84,7 +82,7 @@ func Gettexttranslation(api_key string, message string, language string) *TextTr
 
 	r, _ := http.NewRequest("POST", urlstring, strings.NewReader(data.Encode()))
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded") // URL-encoded payload
-	resp, err := client.Do(r)
+	resp, err := YandexhttpClient.Do(r)
 	if err != nil {
 		panic(err)
 	}

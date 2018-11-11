@@ -7,22 +7,23 @@ import (
 )
 
 func main() {
-	yandex_api_key := os.Args[1] //<<INSERT YOUR YANDEX API KEY HERE>>
+	translation_api_key := os.Args[1] //<<INSERT YOUR YANDEX API KEY HERE>>
+	dictionary_api_key := os.Args[2]
 
-	languagetranslation := yandexapi.Getyandexlanguages(yandex_api_key, "en")
+	languagetranslation := yandexapi.Getyandexlanguages(translation_api_key, "en")
 	fmt.Printf("%s", languagetranslation.Language)
 
-	detectlanguage := yandexapi.Detectlanguage(yandex_api_key, "españa")
+	detectlanguage := yandexapi.Detectlanguage(translation_api_key, "españa")
 	fmt.Printf("%s", detectlanguage.DecodeLanguage)
 
-	translatemessage := yandexapi.Gettexttranslation(yandex_api_key,
+	translatemessage := yandexapi.Gettexttranslation(translation_api_key,
 		"mensaje de prueba",
 		"en")
 	fmt.Printf("%s", translatemessage.Translatetext)
 
-	lookupmethod := yandexapi.DiccionarySearch(yandex_api_key,
-		"carnicero",
-		"en")
+	lookupmethod := yandexapi.DiccionarySearch(dictionary_api_key,
+		"lawyer",
+		"es")
 	fmt.Printf("%s", lookupmethod)
 
 }
