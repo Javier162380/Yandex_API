@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	translation_api_key := os.Args[1] //<<INSERT YOUR YANDEX API KEY HERE>>
-	dictionary_api_key := os.Args[2]
+	translation_api_key := os.Args[1] //<<INSERT YOUR YANDEX API TRANSLATION KEY HERE>>
+	dictionary_api_key := os.Args[2]  //<<INSERT YOUR YANDEX API DICTIONARY KEY HERE>>
 
 	languagetranslation := yandexapi.Getyandexlanguages(translation_api_key, "en")
 	fmt.Printf("%s", languagetranslation.Language)
